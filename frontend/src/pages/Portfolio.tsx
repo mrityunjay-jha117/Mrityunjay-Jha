@@ -45,14 +45,14 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="relative z-100 bg-gray-900 w-full h-screen overflow-x-hidden scrollbar-hide overflow-y-auto">
+    <div className="relative bg-gray-900 w-full h-screen overflow-x-hidden scrollbar-hide overflow-y-auto">
       {/* Desktop Sidenav - Hidden on mobile */}
-      <div className="hidden lg:block fixed left-4 xl:left-10 w-12 max-h-screen z-100 top-40 bottom-20 bg-red-400 rounded-full">
+      <div className="hidden lg:block fixed left-4 xl:left-10 w-12 max-h-screen z-[115] top-40 bottom-20 bg-red-400 rounded-full">
         <Sidenav />
       </div>
 
       {/* Header - Responsive positioning */}
-      <div className="fixed w-full z-100 w-auto h-15 top-5 rounded-full">
+      <div className="fixed w-full z-[110] h-15 top-5 rounded-full">
         <Header />
       </div>
 
@@ -63,7 +63,7 @@ export default function Portfolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-200 bg-black bg-opacity-50 lg:hidden"
+            className="fixed inset-0 z-[138] bg-black bg-opacity-50 lg:hidden"
             onClick={() => setShowMobileMenu(false)}
           >
             <motion.div
@@ -148,14 +148,14 @@ export default function Portfolio() {
       </AnimatePresence>
       {/* Floating Action Buttons */}
       <motion.div
-        className="fixed bottom-6 sm:bottom-10 z-100 w-15 h-auto flex flex-col gap-3 sm:gap-5 items-center justify-center right-4 sm:right-10"
+        className="fixed bottom-6 sm:bottom-10 z-[105] w-15 h-auto flex flex-col gap-3 sm:gap-5 items-center justify-center right-4 sm:right-10"
         layout
       >
         {/* Mobile Menu Button - Only on mobile */}
         <motion.button
           layout
           onClick={() => setShowMobileMenu(true)}
-          className="lg:hidden w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-purple-500 hover:bg-purple-600 transition-colors cursor-pointer shadow-lg"
+          className="lg:hidden w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-purple-500 hover:bg-purple-600 transition-colors cursor-pointer shadow-lg z-[105] relative"
           title="Social Links"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -192,10 +192,10 @@ export default function Portfolio() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToTop}
-              className="w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-lg"
+              className="w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-lg z-[105] relative"
               title="Scroll to Top"
             >
-              ⬆️
+              ^^
             </motion.button>
           )}
         </AnimatePresence>
@@ -213,14 +213,14 @@ export default function Portfolio() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={openGame}
-          className="w-12 h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-red-400 hover:bg-red-500 transition-colors cursor-pointer shadow-lg"
+          className="w-12 hidden sm:block h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-white hover:bg-blue-500 transition-colors cursor-pointer shadow-lg z-[105] relative"
           title="Open 3D Game"
         >
-          🎮
+          <img src="assets/console.png" alt="no horo tere se" className="h-full w-full p-1 object-cover" />
         </motion.button>
       </motion.div>
 
-      <div className="w-full flex flex-col ">
+      <div className="w-full flex flex-col gap-0 justify-center items-center ">
         <First />
         <Third />
         <Second />

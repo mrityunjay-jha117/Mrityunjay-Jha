@@ -78,7 +78,7 @@ export default function Game() {
               - Look around
             </div>
             <div className="border-t border-gray-600 pt-2 mt-2">
-              <kbd className="bg-red-600 px-2 py-1 rounded text-xs">ESC</kbd> -
+              <kbd className="bg-red-400 px-2 py-1 rounded text-xs">ESC</kbd> -
               Back to Portfolio
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function Game() {
             document.exitFullscreen();
           }
         }}
-        className="fixed bottom-6 right-6 z-50 bg-red-400 hover:bg-red-500 text-white p-3 rounded-lg transition-colors"
+        className="fixed bottom-6 right-6 z-50 bg-red-400 hover:bg-red-600 text-white p-3 rounded-lg transition-colors"
         title="Toggle Fullscreen"
       >
         <svg

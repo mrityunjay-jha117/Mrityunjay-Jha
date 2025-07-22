@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 export const ThreeDMarquee = ({
   images,
@@ -14,72 +14,97 @@ export const ThreeDMarquee = ({
 }) => {
   const [itemSize, setItemSize] = useState({ width: 150, height: 150 });
 
-  // Responsive item sizing
-  useEffect(() => {
-    const updateSize = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        // Mobile: smaller tiles
-        setItemSize({ width: 60, height: 40 });
-      } else if (width < 768) {
-        // Small tablet: medium tiles
-        setItemSize({ width: 100, height: 100 });
-      } else if (width < 1024) {
-        // Tablet: larger tiles
-        setItemSize({ width: 120, height: 120 });
-      } else {
-        // Desktop: full size tiles
-        setItemSize({ width: 150, height: 150 });
-      }
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
+  // Optimized resize handler with debouncing
+  const updateSize = useCallback(() => {
+    const width = window.innerWidth;
+    if (width < 640) {
+      setItemSize({ width: 100, height: 80 }); // Further reduced for mobile
+    } else if (width < 768) {
+      setItemSize({ width: 90, height: 90 });
+    } else if (width < 1024) {
+      setItemSize({ width: 110, height: 110 });
+    } else {
+      setItemSize({ width: 130, height: 130 }); // Reduced from 150
+    }
   }, []);
 
-  // Config - responsive gap
-  const gap = itemSize.width < 100 ? 12 : itemSize.width < 120 ? 16 : 20;
-  const { width: itemWidth, height: itemHeight } = itemSize;
-  const chunkSize = Math.ceil(images.length / columns);
+  useEffect(() => {
+    updateSize();
 
-  // Create duplicated lists for looping
-  const cols = Array.from({ length: columns }, (_, i) => {
-    const slice = images.slice(i * chunkSize, i * chunkSize + chunkSize);
-    return [...slice, ...slice];
-  });
+    // Debounced resize listener
+    let timeoutId: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateSize, 150);
+    };
 
-  // Calculate distances
-  const loopHeight = (itemHeight + gap) * chunkSize;
-  const midOffset = loopHeight / 2;
+    window.addEventListener("resize", debouncedResize);
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+      clearTimeout(timeoutId);
+    };
+  }, [updateSize]);
+
+  // Memoize calculations to prevent re-computation
+  const config = useMemo(() => {
+    const gap = itemSize.width < 90 ? 12 : itemSize.width < 110 ? 12 : 20; // Reduced gaps
+    const { width: itemWidth, height: itemHeight } = itemSize;
+    const chunkSize = Math.ceil(images.length / columns);
+    const loopHeight = (itemHeight + gap) * chunkSize;
+    const midOffset = loopHeight / 2;
+
+    return { gap, itemWidth, itemHeight, chunkSize, loopHeight, midOffset };
+  }, [itemSize, images.length, columns]);
+
+  // Memoize column data
+  const cols = useMemo(() => {
+    return Array.from({ length: columns }, (_, i) => {
+      const slice = images.slice(
+        i * config.chunkSize,
+        i * config.chunkSize + config.chunkSize
+      );
+      return [...slice, ...slice];
+    });
+  }, [columns, images, config.chunkSize]);
 
   return (
     <div className={`relative overflow-hidden w-full h-full ${className}`}>
-      <div className="perspective-[800px] w-full h-full flex justify-center items-center">
+      <div
+        className="w-full h-full flex justify-center items-center"
+        style={{
+          perspective: "800px", // Reduced perspective for better performance
+          transform: "translateZ(0)", // Force hardware acceleration
+          willChange: "transform",
+        }}
+      >
         <div
-          className="transform-style-preserve-3d grid"
+          className="grid"
           style={{
-            gridTemplateColumns: `repeat(${columns}, ${itemWidth}px)`,
-            gap: `${gap}px`,
-            transform: "rotateX(45deg) rotateY(0deg) rotateZ(-35deg)",
+            gridTemplateColumns: `repeat(${columns}, ${config.itemWidth}px)`,
+            gap: `${config.gap}px`,
+            transform: "rotateX(35deg) rotateY(0deg) rotateZ(-25deg)", // Reduced rotation angles
+            transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden", // Performance optimization
           }}
         >
           {cols.map((col, ci) => {
-            // Adjust direction per column (even/odd)
             const dir = ci % 2 === 0 ? 1 : -1;
-            // Start at middle to avoid blank space
-            const startY = dir * midOffset;
+            const startY = dir * config.midOffset;
 
             return (
               <motion.div
                 key={ci}
                 className="flex flex-col items-center"
-                style={{ rowGap: `${gap}px`, y: startY }}
+                style={{
+                  rowGap: `${config.gap}px`,
+                  y: startY,
+                  willChange: "transform",
+                }}
                 animate={{
-                  y: [startY, startY + dir * -loopHeight],
+                  y: [startY, startY + dir * -config.loopHeight],
                 }}
                 transition={{
-                  duration: (loopHeight / 100) * (1 / speed),
+                  duration: (config.loopHeight / 80) * (1 / speed), // Faster base speed
                   ease: "linear",
                   repeat: Infinity,
                 }}
@@ -88,16 +113,26 @@ export const ThreeDMarquee = ({
                   <motion.img
                     key={idx}
                     src={src}
-                    className="rounded-lg object-contain cursor-pointer"
+                    className="rounded-md object-contain cursor-pointer" // Reduced border radius
                     style={{
-                      width: `${itemWidth}px`,
-                      height: `${itemHeight}px`,
+                      width: `${config.itemWidth}px`,
+                      height: `${config.itemHeight}px`,
+                      willChange: "transform",
+                      backfaceVisibility: "hidden",
                     }}
-                    // Hover effect
-                    whileHover={{ scale: 1.25, y: -20 }}
-                    // Click/tap effect
-                    whileTap={{ scale: 0.95, y: -5 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    // Simplified hover effects
+                    whileHover={{
+                      scale: 1.15, // Reduced from 1.25
+                      y: -10, // Reduced from -20
+                      transition: { duration: 0.2 },
+                    }}
+                    whileTap={{
+                      scale: 0.98, // Reduced from 0.95
+                      y: -2, // Reduced from -5
+                      transition: { duration: 0.1 },
+                    }}
+                    loading="lazy" // Lazy loading for images
+                    decoding="async" // Async decoding
                   />
                 ))}
               </motion.div>

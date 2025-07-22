@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -16,7 +15,6 @@ export default function Header() {
   };
 
   const navItems = [
-    { id: "home-section", label: "Home" },
     { id: "skills-section", label: "Skills" },
     { id: "projects-section", label: "Projects" },
     { id: "contact-section", label: "Contact" },
@@ -25,7 +23,7 @@ export default function Header() {
   return (
     <>
       {/* Desktop Header */}
-      <header className="hidden md:flex w-auto max-w-2xl bg-black/90 backdrop-blur-md border border-gray-800 h-12 lg:h-14 ml-auto lg:mr-20 items-center justify-center rounded-full px-4 lg:px-8 shadow-2xl">
+      <header className="hidden md:flex sm:mr-20 w-auto max-w-2xl bg-black/90 backdrop-blur-md border border-gray-800 h-12 lg:h-14 ml-auto items-center justify-center rounded-full px-4 lg:px-8 shadow-2xl z-[110] relative">
         <nav className="w-full">
           <ul className="flex items-center justify-center space-x-4 lg:space-x-8 text-white">
             {navItems.map((item) => (
@@ -44,17 +42,10 @@ export default function Header() {
       </header>
 
       {/* Mobile Header */}
-      <header className="md:hidden flex items-center justify-between w-auto max-w-xs bg-black/90 backdrop-blur-md border border-gray-800 h-12 rounded-full px-4 shadow-2xl">
-        <button
-          onClick={() => scrollToSection("home-section")}
-          className="text-white font-bold text-lg hover:text-red-400 transition-colors"
-        >
-          MJ
-        </button>
-
+      <header className="md:hidden w-11/12 max-w-sm mx-auto flex items-center justify-center bg-black/90 backdrop-blur-md border border-gray-800 h-12 rounded-full px-4 shadow-2xl z-[110] relative">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-white hover:text-red-400 transition-colors p-2"
+          className="text-white hover:text-red-400 transition-colors p-2 flex items-center gap-2"
         >
           <svg
             className={`w-5 h-5 transition-transform duration-300 ${
@@ -86,7 +77,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="md:hidden absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-md border border-gray-800 rounded-2xl shadow-2xl z-50 overflow-hidden"
+            className="md:hidden absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-md border border-gray-800 rounded-2xl shadow-2xl z-[105] overflow-hidden"
           >
             <nav className="p-4">
               <ul className="space-y-1">
@@ -120,7 +111,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsMobileMenuOpen(false)}
-            className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+            className="md:hidden w-full fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
           />
         )}
       </AnimatePresence>

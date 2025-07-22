@@ -4,49 +4,56 @@ export default function First() {
   return (
     <div
       id="home-section"
-      className="relative h-screen w-full text-white flex lg:flex-row flex-col items-stretch"
+      className="h-full w-full mx-auto text-white flex flex-row items-center justify-center"
     >
-      {/* Physics layer visually on top but doesn't block clicks */}
-      <div className="hidden sm:block absolute inset-0 z-20 ">
+      
+      {/* Physics layer above hero content but below UI elements */}
+      <div className="hidden sm:block absolute inset-0 z-30">
         <RapierPhysics />
       </div>
-
-      {/* Content fully above physics layer */}
-      <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 py-8 sm:py-12">
-        <div className="max-w-4xl w-full lg:w-3/5">
-          <h1 className="text-md sm:text-base md:text-lg lg:text-xl xl:text-2xl text-blue-600 font-bold mb-2 sm:mb-3 lg:mb-4">
-            --FULL STACK WEB DEVELOPER <br />
-            <span className="text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-blue-500 font-black block mt-1 sm:mt-2">
+      {/* Content below physics layer - Centered container */}
+      <div className="flex flex-col my-30 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36  ">
+        <div className="max-w-sm mx-auto sm:mx-0 sm:max-w-md md:max-w-lg lg:max-w-4xl w-full text-center lg:text-left lg:w-3/5">
+          {/* Main heading with consistent sizing */}
+          <h1 className="text-md sm:text-2xl md:text-3xl text-blue-500 font-bold mb-3 sm:mb-4 lg:mb-6 text-center lg:text-left">
+            --FULL STACK WEB DEVELOPER
+            <br />
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-500 font-black block mt-2 sm:mt-3">
               MRITYUNJAY JHA
             </span>
           </h1>
-          <p className="w-3/4 text-xs sm:text-base lg:text-lg xl:text-xl mb-3 sm:mb-4 lg:mb-6 leading-relaxed">
+
+          {/* Description with better responsive sizing */}
+          <p className="w-full lg:w-4/5 text-sm lg:text-lg sm:mb-6 lg:mb-8 leading-relaxed text-center lg:text-left ">
             Full-stack developer by day, 3D web creator by passion.{" "}
-            <span>
+            <span className="block sm:inline mt-1 sm:mt-0">
               I build robust APIs and craft interactive visuals that elevate
               digital experiences.
             </span>
           </p>
-          <h2 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold mb-4 sm:mb-6 lg:mb-8">
+
+          {/* Location with better sizing */}
+          <h2 className="text-sm sm:text-base md:text-lg font-medium sm:mb-8 lg:mb-10 text-center lg:text-left tracking-wider">
             NEW DELHI | INDIA
           </h2>
 
-          <div className="flex flex-row gap-3 sm:gap-4">
+          {/* Buttons with improved layout and sizing */}
+          <div className="flex h-8 sm:h-10 flex-row relative w-4/5 mx-auto sm:mr-auto sm:ml-0 z-[100] justify-center lg:justify-start items-center gap-3 sm:gap-6 mt-5 ">
             <a
               href="https://drive.google.com/file/d/1pszshrx1FGB3yUIYwUOMrDXJEaye1Mpl/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-32 md:w-36 lg:w-40 h-10 sm:h-11 md:h-12 z-100 cursor-pointer bg-red-400 rounded-lg font-semibold hover:bg-red-500 transition-colors flex items-center justify-center text-white no-underline text-sm sm:text-base"
+              className="w-full rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-red-500 hover:bg-red-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm  hover:scale-105 shadow-lg"
             >
-              RESUME
+              VIEW RESUME
             </a>
             <a
               href="https://drive.google.com/file/d/1pszshrx1FGB3yUIYwUOMrDXJEaye1Mpl/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-32 md:w-36 lg:w-40 h-10 sm:h-11 md:h-12 z-100 cursor-pointer bg-blue-500 rounded-lg font-semibold hover:bg-blue-400 transition-colors flex items-center justify-center text-white no-underline text-sm sm:text-base"
+              className="w-full rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm hover:scale-105 shadow-lg"
             >
-              RESUME
+              DOWNLOAD
             </a>
           </div>
         </div>
