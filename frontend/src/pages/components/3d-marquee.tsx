@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useState, useEffect } from "react";
 
 export const ThreeDMarquee = ({
   images,
@@ -11,10 +12,35 @@ export const ThreeDMarquee = ({
   className?: string;
   speed?: number;
 }) => {
-  // Config
-  const gap = 20;  // px gap between items
-  const itemWidth = 150;  // px
-  const itemHeight = 150; // px
+  const [itemSize, setItemSize] = useState({ width: 150, height: 150 });
+
+  // Responsive item sizing
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        // Mobile: smaller tiles
+        setItemSize({ width: 60, height: 40 });
+      } else if (width < 768) {
+        // Small tablet: medium tiles
+        setItemSize({ width: 100, height: 100 });
+      } else if (width < 1024) {
+        // Tablet: larger tiles
+        setItemSize({ width: 120, height: 120 });
+      } else {
+        // Desktop: full size tiles
+        setItemSize({ width: 150, height: 150 });
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  // Config - responsive gap
+  const gap = itemSize.width < 100 ? 12 : itemSize.width < 120 ? 16 : 20;
+  const { width: itemWidth, height: itemHeight } = itemSize;
   const chunkSize = Math.ceil(images.length / columns);
 
   // Create duplicated lists for looping
@@ -28,10 +54,8 @@ export const ThreeDMarquee = ({
   const midOffset = loopHeight / 2;
 
   return (
-    <div className={`relative overflow-hidden w-full h-full ${className}`}>      
-      <div
-        className="perspective-[800px] w-full h-full flex justify-center items-center"
-      >
+    <div className={`relative overflow-hidden w-full h-full ${className}`}>
+      <div className="perspective-[800px] w-full h-full flex justify-center items-center">
         <div
           className="transform-style-preserve-3d grid"
           style={{
@@ -52,7 +76,7 @@ export const ThreeDMarquee = ({
                 className="flex flex-col items-center"
                 style={{ rowGap: `${gap}px`, y: startY }}
                 animate={{
-                  y: [startY, startY + dir * -loopHeight]
+                  y: [startY, startY + dir * -loopHeight],
                 }}
                 transition={{
                   duration: (loopHeight / 100) * (1 / speed),
@@ -64,8 +88,11 @@ export const ThreeDMarquee = ({
                   <motion.img
                     key={idx}
                     src={src}
-                    className="rounded-lg object-cover cursor-pointer"
-                    style={{ width: `${itemWidth}px`, height: `${itemHeight}px` }}
+                    className="rounded-lg object-contain cursor-pointer"
+                    style={{
+                      width: `${itemWidth}px`,
+                      height: `${itemHeight}px`,
+                    }}
                     // Hover effect
                     whileHover={{ scale: 1.25, y: -20 }}
                     // Click/tap effect

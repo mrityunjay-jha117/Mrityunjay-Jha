@@ -1,5 +1,5 @@
 {
-  "name": "mail_server",
+  "name": "express_mail_server",
   "version": "1.0.0",
   "description": "Mail server to send mail for all my projects using nodemailer.",
   "license": "ISC",
