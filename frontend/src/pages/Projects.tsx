@@ -2,6 +2,30 @@ import { motion } from "framer-motion";
 import { useMemo, useCallback } from "react";
 
 export default function Second() {
+  // Project data array with live links and GitHub repo links
+  const projectsData = [
+    {
+      id: 0,
+      liveLink: "https://your-project-1-live.com",
+      githubLink: "https://github.com/mrityunjay-jha117/AirBit",
+    },
+    {
+      id: 1,
+      liveLink: "https://nirvana-final-delta.vercel.app",
+      githubLink: "https://github.com/mrityunjay-jha117/nirvana-final",
+    },
+    {
+      id: 2,
+      liveLink: "https://three-six-pearl.vercel.app/",
+      githubLink: "https://github.com/mrityunjay-jha117/Three",
+    },
+    {
+      id: 3,
+      liveLink: "https://metro-project-amber.vercel.app/",
+      githubLink: "https://github.com/mrityunjay-jha117/metro_project",
+    },
+  ];
+
   // Memoize size calculation function to prevent re-creation
   const getSizeClasses = useCallback((distance: number) => {
     switch (distance) {
@@ -25,8 +49,9 @@ export default function Second() {
       sizeClass: getSizeClasses(Math.abs(idx - centerIndex)),
       delay: 0.08 * idx, // Reduced delay for faster animations
       isComingSoon: idx === 4, // Last card is "coming soon"
+      projectData: idx < 4 ? projectsData[idx] : null, // Link to project data for first 4 cards
     }));
-  }, [getSizeClasses]);
+  }, [getSizeClasses, projectsData]);
 
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-12">
@@ -106,7 +131,18 @@ export default function Second() {
                         style={{ willChange: "auto" }} // Remove unnecessary willChange
                       />
                       <div className="absolute flex flex-col sm:flex-row justify-end gap-2 sm:gap-2 lg:gap-3 bottom-3 sm:bottom-3 lg:bottom-4 right-3 sm:right-3 lg:right-4">
-                        <button className="w-12 h-12 sm:w-11 sm:h-11 lg:w-13 lg:h-13 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-colors duration-200 text-white font-bold shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center">
+                        <button
+                          className="w-12 h-12 sm:w-11 sm:h-11 lg:w-13 lg:h-13 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-colors duration-200 text-white font-bold shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center"
+                          onClick={() => {
+                            if (card.projectData?.githubLink) {
+                              window.open(
+                                card.projectData.githubLink,
+                                "_blank"
+                              );
+                            }
+                          }}
+                          title="View GitHub Repository"
+                        >
                           <svg
                             className="w-5 h-5 sm:w-5 sm:h-5"
                             fill="currentColor"
@@ -119,7 +155,15 @@ export default function Second() {
                             />
                           </svg>
                         </button>
-                        <button className="w-12 h-12 sm:w-11 sm:h-11 lg:w-13 lg:h-13 rounded-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 transition-colors duration-200 text-white font-bold shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center">
+                        <button
+                          className="w-12 h-12 sm:w-11 sm:h-11 lg:w-13 lg:h-13 rounded-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 transition-colors duration-200 text-white font-bold shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center"
+                          onClick={() => {
+                            if (card.projectData?.liveLink) {
+                              window.open(card.projectData.liveLink, "_blank");
+                            }
+                          }}
+                          title="View Live Demo"
+                        >
                           <svg
                             className="w-5 h-5 sm:w-5 sm:h-5"
                             fill="none"

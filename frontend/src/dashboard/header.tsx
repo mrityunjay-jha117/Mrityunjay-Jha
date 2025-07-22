@@ -15,7 +15,7 @@ export default function Header() {
   };
 
   const navItems = [
-    { id: "skills-section", label: "Skills" },
+    { id: "about_section", label: "About" },
     { id: "projects-section", label: "Projects" },
     { id: "contact-section", label: "Contact" },
   ];

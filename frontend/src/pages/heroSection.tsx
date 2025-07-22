@@ -6,7 +6,6 @@ export default function First() {
       id="home-section"
       className="h-full w-full mx-auto text-white flex flex-row items-center justify-center"
     >
-      
       {/* Physics layer above hero content but below UI elements */}
       <div className="hidden sm:block absolute inset-0 z-30">
         <RapierPhysics />
@@ -45,16 +44,23 @@ export default function First() {
               rel="noopener noreferrer"
               className="w-full rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-red-500 hover:bg-red-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm  hover:scale-105 shadow-lg"
             >
-              VIEW RESUME
+              RESUME
             </a>
-            <a
-              href="https://drive.google.com/file/d/1pszshrx1FGB3yUIYwUOMrDXJEaye1Mpl/view?usp=drive_link"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => {
+                const contactSection =
+                  document.getElementById("contact-section");
+                if (contactSection) {
+                  contactSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }
+              }}
               className="w-full rounded-full sm:rounded-xl sm:w-36 md:w-40 lg:w-44 h-9 h-full z-[25] relative cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300 flex items-center justify-center text-white no-underline text-sm hover:scale-105 shadow-lg"
             >
-              DOWNLOAD
-            </a>
+              CONTACT ME
+            </button>
           </div>
         </div>
       </div>
