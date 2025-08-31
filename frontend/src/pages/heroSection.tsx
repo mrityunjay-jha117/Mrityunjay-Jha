@@ -4,7 +4,7 @@ export default function First() {
   return (
     <div
       id="home-section"
-      className="h-full w-full mx-auto text-white flex flex-row items-center justify-center"
+      className="h-screen w-full mx-auto text-white flex flex-row items-center justify-center"
     >
       {/* Physics layer above hero content but below UI elements */}
       <div className="hidden sm:block absolute inset-0 z-30">
@@ -14,8 +14,8 @@ export default function First() {
       <div className="flex flex-col my-30 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36  ">
         <div className="max-w-sm mx-auto sm:mx-0 sm:max-w-md md:max-w-lg lg:max-w-4xl w-full text-center lg:text-left lg:w-3/5">
           {/* Main heading with consistent sizing */}
-          <h1 className="text-md sm:text-2xl md:text-3xl text-blue-500 font-bold mb-3 sm:mb-4 lg:mb-6 text-center lg:text-left">
-            --FULL STACK WEB DEVELOPER
+          <h1 className="text-md sm:text-2xl md:text-3xl text-white font-black mb-3 sm:mb-4 lg:mb-6 text-center lg:text-left">
+            FULL STACK WEB DEVELOPER
             <br />
             <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-blue-500 font-black block mt-2 sm:mt-3">
               MRITYUNJAY JHA
@@ -32,7 +32,7 @@ export default function First() {
           </p>
 
           {/* Location with better sizing */}
-          <h2 className="text-sm sm:text-base md:text-lg font-medium sm:mb-8 lg:mb-10 text-center lg:text-left tracking-wider">
+          <h2 className="text-sm sm:text-base text-blue-400 md:text-lg font-medium sm:mb-8 lg:mb-10 text-center lg:text-left tracking-wider">
             NEW DELHI | INDIA
           </h2>
 

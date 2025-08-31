@@ -54,14 +54,17 @@ export default function Second() {
   }, [getSizeClasses, projectsData]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-12">
+    <div className="h-screen w-full flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center py-8 sm:py-12">
+      <div className="flex items-start justify-start w-full text-left">
+        <h1 className="text-3xl lg:text-6xl xl:text-8xl text-blue-500 font-black tracking-tight">
+          Projects
+        </h1>
+      </div>
+
       <div
         id="projects-section"
         className="flex flex-col items-center justify-center w-full "
       >
-        <h1 className="text-3xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-blue-500 font-extrabold tracking-tight mb-8 sm:mb-12 text-center">
-          PROJECTS
-        </h1>
         <section className="px-2 sm:px-4 w-full py-6 sm:py-8 md:py-12 lg:py-16">
           <motion.div
             className="w-full mx-auto flex flex-col justify-center items-center"
@@ -100,21 +103,6 @@ export default function Second() {
                         <p className="text-gray-400 text-sm sm:text-base">
                           Coming Soon
                         </p>
-                        <div className="mt-3 text-blue-500">
-                          <svg
-                            className="w-8 h-8 mx-auto animate-pulse"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 4v16m8-8H4"
-                            />
-                          </svg>
-                        </div>
                       </div>
                     </div>
                   ) : (

@@ -47,7 +47,7 @@ export default function Portfolio() {
   return (
     <div className="relative bg-gray-900 w-full h-screen overflow-x-hidden scrollbar-hide overflow-y-auto">
       {/* Desktop Sidenav - Hidden on mobile */}
-      <div className="hidden lg:block fixed left-4 xl:left-10 w-12 max-h-screen z-[115] top-40 bottom-20 bg-red-400 rounded-full">
+      <div className="hidden lg:block fixed left-4 xl:left-10 w-13 z-[115] h-2/3 top-[20%] bg-blue-500 rounded-full">
         <Sidenav />
       </div>
 
@@ -216,7 +216,11 @@ export default function Portfolio() {
           className="w-12 hidden sm:block h-12 sm:w-15 sm:h-15 rounded-full text-white flex items-center justify-center bg-white hover:bg-blue-500 transition-colors cursor-pointer shadow-lg z-[105] relative"
           title="Open 3D Game"
         >
-          <img src="assets/console.png" alt="no horo tere se" className="h-full w-full p-1 object-cover" />
+          <img
+            src="assets/console.png"
+            alt="no horo tere se"
+            className="h-full w-full p-1 object-cover"
+          />
         </motion.button>
       </motion.div>
 

@@ -1,6 +1,6 @@
 export default function Third() {
   return (
-    <div id="about_section" className="h-full w-full flex flex-col lg:flex-row items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-12">
+    <div id="about_section" className="h-screen w-full flex flex-col lg:flex-row items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 justify-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-12">
       <div className="w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-1/2">
         <div className="flex flex-col justify-center items-center lg:items-start w-full text-white">
           <h1 className="text-3xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-blue-500 text-center lg:text-left mb-3 sm:mb-4">

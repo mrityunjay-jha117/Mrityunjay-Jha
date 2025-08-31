@@ -28,8 +28,8 @@ export default function Sidenav() {
   ];
 
   return (
-    <aside className="h-full w-full rounded-full  flex flex-col items-center justify-between py-8 shadow-lg">
-      <ul className="space-y-10">
+    <aside className="h-full w-full rounded-full  flex flex-col items-center justify-around shadow-lg">
+      <ul className="space-y-13">
         {links.map(({ href, label, src }) => (
           <li key={label} className="group relative">
             <a
@@ -38,7 +38,7 @@ export default function Sidenav() {
               rel="noopener noreferrer"
               className="flex h-5 w-5 items-center justify-center rounded-lg text-gray-300"
             >
-              <img src={src} alt="NA" className="h-full w-full object-contain"/>
+              <img src={src} alt="NA" className="h-full w-full object-cover"/>
             </a>
             {/* Tooltip on hover */}
             <span className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">
